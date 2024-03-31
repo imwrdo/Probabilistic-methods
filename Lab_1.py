@@ -131,4 +131,7 @@ print("Całkowita długość trasy:", round(shortest_distance, 2),"km")
 max_population_subset, max_population = townsPopulation(subsets, cities)
 print("\nPodzbiór z największą średnią liczbą mieszkańców:")
 print(max_population_subset)
+cities_in_order = [cities[i-1] for i in max_population_subset]
+for city in cities_in_order:
+    print(city[1], end=" -> ")
 print("Średnia liczba mieszkańców:", max_population)
