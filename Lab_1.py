@@ -1,7 +1,7 @@
 import math
 
 cities = [
-    [1, 'Rome', 2837, 41.90282, 9.1900],
+    [1, 'Rome', 2837, 41.90282, 12.4964],
     [2, 'Milan', 1366, 45.4642, 9.1900],
     [3, 'Naples', 959, 40.8522, 14.2681],
     [4, 'Turin', 878, 45.0703, 7.6869],
@@ -67,16 +67,16 @@ def townsDistance(permutations, data):
         for i in range(len(permutation) - 1):
             town_1 = data[permutation[i] - 1]
             town_2 = data[permutation[i+1] - 1]
-            odleglosc = distanceCalculating(town_1, town_2)
-            d += odleglosc
-            path.append((town_1[1], town_2[1], odleglosc))
+            distance = distanceCalculating(town_1, town_2)
+            d += distance
+            path.append((town_1[1], town_2[1], distance))
         
         # Dodaj odległość z ostatniego miasta do pierwszego miasta
         town_1 = data[permutation[-1] - 1]
         town_2 = data[permutation[0] - 1]
-        odleglosc = distanceCalculating(town_1, town_2)
-        d += odleglosc
-        path.append((town_1[1], town_2[1], odleglosc))
+        distance = distanceCalculating(town_1, town_2)
+        d += distance
+        path.append((town_1[1], town_2[1], distance))
         
         if d < shortest_distance:
             shortest_distance = d
@@ -125,7 +125,7 @@ print("\nOdwiedziny miast:")
 shortest_path, shortest_distance = townsDistance(all_permutations, cities)
 print("\nNajkrótsza trasa:")
 for path in shortest_path:
-    print(path[0], "->", path[1], "(Długość:", round(path[2], 2), ")")
+    print(path[0], "->", path[1], "(Długość:", round(path[2], 2), "km)")
 print("Całkowita długość trasy:", round(shortest_distance, 2),"km")
 
 max_population_subset, max_population = townsPopulation(subsets, cities)
