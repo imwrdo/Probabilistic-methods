@@ -14,7 +14,7 @@ class LCGGenerator:
         return sequence
 
 class shiftRegister:
-    def __init__(self, N, p, q,seed = 2137):
+    def __init__(self, N, p, q,seed = 1234):
         self.N = N
         self.p = p
         self.q = q
