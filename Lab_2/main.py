@@ -40,7 +40,7 @@ class shiftRegister:
 a = 16807
 c = 0
 m = 2**31 - 1
-N = 1000000
+N = 10000
 
 lcg = LCGGenerator(a,c,m)
 
