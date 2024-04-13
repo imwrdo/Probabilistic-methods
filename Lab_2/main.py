@@ -1,71 +1,62 @@
-class LCGGenerator:
-    def __init__(self,a,c,m,seed=1  ):
+class linearGenerator:
+    def __init__(self,a,c,m,seed=15):
         self.a = a
         self.c = c
         self.m = m
         self.state = seed
     def algorytm(self):
-        self.state = ( self.a * self.state + self.c ) % self.m
+        self.state = (self.a*self.state+self.c)%self.m
         return self.state / self.m
-    def generate_sequence(self,N):
+    def generate_sequence_linear(self,N):
         sequence = []
         for _ in range(N):
             sequence.append(self.algorytm())
         return sequence
 
-class shiftRegister:
-    def __init__(self, N, p, q,seed = 1234):
-        self.N = N
+class shiftGenerator:
+    def __init__(self, p, q, m, seed=0b11010101000000000000000000000000):
         self.p = p
         self.q = q
+        self.m = m
         self.state = seed
-        
-    def SRGen(self):
-        if self.N <= 0:
-            return None
-        
-        self.state = list(map(int, bin(self.state)[2:]))    
-        if len(self.state) < self.p:
-            self.state = self.state + self.state
-        randomSequence = []
-        
-        for i in range(self.N):
-            if(i<self.p):
-                randomSequence.append(self.state[i])
-            else: 
-                randomSequence.append(randomSequence[i-self.p] ^ randomSequence[i-self.q])
-        return randomSequence
     
+    def generate_sequence_shift(self):
+        for i in range(23, -1, -1):
+            new_bit = (self.state >> (i + self.p)) & 1 ^ (self.state >> (i + self.q)) & 1
+            self.state ^= (-new_bit ^ self.state) & (1 << i)
 
-a = 16807
-c = 0
-m = 2**31 - 1
-N = 10000
+        for i in range(30, 23, -1):
+            self.state ^= ((self.state >> (i - 24)) & 1) << i
 
-lcg = LCGGenerator(a,c,m)
+        return self.state / self.m
 
+a = 69069
+c = 1
+m = 2**31
+N = 100000
 
+lcg = linearGenerator(a, c, m)
+sequence_1 = lcg.generate_sequence_linear(N)
 
-
-sequence_1 = lcg.generate_sequence(N)
-intervals = [0]*10
+interval_1 = [0]*10
 for num in sequence_1:
     index = int(num*10)
-    intervals[index]+=1
-    
-for i,count in enumerate(intervals):
-    print(f"Przedzial {i}: {count}")
-    
-p = 10
+    interval_1[index] += 1
+print("\nLinear generator")
+for i, count in enumerate(interval_1):
+    print(f"Interval {i+1}: {count}")
+
+p = 7
 q = 3
 
-SRgenerator = shiftRegister(N,p,q)
 
-sequence_2 = SRgenerator.SRGen()
-intervals_2 = [0]*2
-for num in sequence_2:
-    index = int(num)
-    intervals_2[index]+=1
-    
-for i,count in enumerate(intervals_2):
-    print(f"Przedzial {i}: {count}")
+SGen = shiftGenerator(p, q, m)
+
+interval_2 = [0]*10
+for _ in range(N):
+    newNum = SGen.generate_sequence_shift()
+    interval_2[int(newNum * 10) % 10] += 1
+
+print("\nShift generator")
+for i, count in enumerate(interval_2):
+    print(f"Interval {i+1}: {count}")
