@@ -14,6 +14,9 @@ This repository contains completed labs for the Probabilistic Methods course at 
   - Folder: Lab_2
   - Status: Completed and Published
   - Description: This lab delves into random number generators with a uniform distribution. Through Python implementations, students explore various methods of generating random numbers with uniform distribution and analyze their properties. This lab provides insights into the importance and applications of random number generation in probabilistic modeling.
-
+3. Inverse distribution method
+  - Folder: Lab_3
+  - Status: Completed and Published
+  - Description:  This lab delves into random number generators with using inverse distribution method
 
 
