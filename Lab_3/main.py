@@ -1,24 +1,27 @@
 import random
 
-def transform_1(n):
-    return n * 100 + 50
+def zad_1(n,min,max):
+    return n * (max - min) + min
 
-def transform_2(n):
-    if n < 0.1:
-        return 1
-    if n < 0.3:
-        return 2
-    if n < 0.6:
-        return 3
+def zad_2(num):
+    licz = 0
+    sum = 0
+    prob = [0.05,0.15,0.25,0.55]
+    for i in prob:
+        sum+=i
+        if(num<sum):
+            return licz+1
+        licz+=1
     return 4
 
 def main():
     arr = []
     count = {}
-
+    min = 50
+    max = 150
     for _ in range(100000):
         num = random.random()
-        proc = transform_1(num)
+        proc = zad_1(num,min,max)
         arr.append(proc)
 
     for level in range(10):
@@ -31,7 +34,7 @@ def main():
             if n >= range_[0] and n <= range_[1]:
                 count[range_] += 1
                 break
-
+    print("First task:")
     for i in range(10):
         range_ = (50 + (10 * i), 50 + (10 * i) + 10)
         print(f"({range_[0]}, {range_[1]}): {count[range_]}")
@@ -42,10 +45,10 @@ def main():
 
     for _ in range(100000):
         num = random.random()
-        val = transform_2(num)
+        val = zad_2(num)
         arr.append(val)
         count2[val - 1] += 1
-
+    print("Second task:")
     for i in range(4):
         print(f"{i+1}: {count2[i]}")
 
