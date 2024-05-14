@@ -18,5 +18,9 @@ This repository contains completed labs for the Probabilistic Methods course at 
   - Folder: Lab_3
   - Status: Completed and Published
   - Description:  This lab delves into random number generators with using inverse distribution method
+4.  Multidimensional random variables
+  - Folder: Lab_4
+  - Status: In progress
+  - Description: soon
 
 
